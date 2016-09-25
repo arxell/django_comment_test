@@ -1,0 +1,10 @@
+dicttoxml
+django-extensions
+django-memoize
+django-mptt
+django-reversion-compare==0.7.1
+django-reversion==2.0.6
+Django==1.9.9
+psycopg2==2.6.1
+PyContracts==1.7.9
+schematics==1.1.1
