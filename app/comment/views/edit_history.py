@@ -17,9 +17,9 @@ def view(request):
     View for /api/comment/v1/edit/
 
     Input Schema:
-        EditSchemIn
+        EditHistorySchemIn
     Output Schema:
-        EditSchemOut
+        EditHistorySchemOut
 
     Examples:
         /api/comment/v1/edit/history?comment_id=238925
@@ -44,13 +44,11 @@ def view(request):
         })
         return JsonResponse(edit_history_schema_out.to_native(), status=400)
 
-    edit_history = []
-    versions = Version.objects.get_for_object(
-        comment).order_by('revision__date_created')
-    for version in versions:
-        version._object_version
+    edit_history = [
         version._object_version.object.to_dict()
-        edit_history.append(version._object_version.object.to_dict())
+        for version in Version.objects.get_for_object(
+            comment).order_by('revision__date_created')
+    ]
 
     edit_history_schema_out = EditHistorySchemOut({
         'status': EditHistorySchemOut.STATUS_OK,
