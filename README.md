@@ -31,3 +31,20 @@ Tree Examples
 * /api/comment/v1/tree/?comment_id=1
 * /api/comment/v1/tree/?user_id=1
 * /api/comment/v1/tree/?type_id=1&object_id=123
+
+User History
+---------------------
+* /api/comment/v1/user/history/?user_id=1&created_at_from=2016-09-23T06:25:04.189753
+
+Export
+---------------------
+* /api/comment/v1/export/?user_id=1&created_at_from=2016-09-23T06:25:04.189753&format=cvs
+* /api/comment/v1/export/?type_id=1&object_id=323&format=xml
+
+Export History
+---------------------
+* /api/comment/v1/export/history?user_id=1
+
+Export Restore
+---------------------
+*  /api/comment/v1/export/restore?export_id=1

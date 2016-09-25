@@ -22,7 +22,7 @@ def view(request):
         UserHistorySchemaOut
 
     Examples:
-        /api/comment/v1/user/history/?user_id=1&created_at_from=2016-09-23T06:25:04.189753&format=cvs
+        /api/comment/v1/user/history/?user_id=1&created_at_from=2016-09-23T06:25:04.189753
     """
     try:
         user_history_schema_in = UserHistorySchemaIn(

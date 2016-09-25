@@ -70,8 +70,9 @@ def view(request):
         response = JsonResponse([c.to_dict() for c in comments], safe=False)
         response['Content-Disposition'] = 'attachment; filename="user_history.json"'
 
-    export = Export.objects.create(user_id=export_in.user_id)
-    export.set_data(response)
-    export.save(update_fields=['data'])
+    if export_in.user_id:
+        export = Export.objects.create(user_id=export_in.user_id)
+        export.set_data(response)
+        export.save(update_fields=['data'])
 
     return response
