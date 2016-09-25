@@ -1,20 +1,27 @@
-# test
+# Django Comment Test
 
-Random Data
---------------------
+API Urls
+=============
+* /api/comment/v1/add/
+* /api/comment/v1/edit/
+* /api/comment/v1/delete/
+* /api/comment/v1/tree/
+* /api/comment/v1/user/history/
+* /api/comment/v1/export/
+* /api/comment/v1/export/history/
+* /api/comment/v1/export/restore/
 
-test=# select count(id) from test_deal;
-count
-11909810
-(1 row)
 
-test=# select count(id) from test_transaction;
-11909810
-(1 row)
 
-test=# select count(id) from test_trader;
-20100
-(1 row)
+Add Comment Examples
+---------------------
+* /api/comment/v1/add/?type_id=1&object_id=123&text=qwe&&user_id=123
+* /api/comment/v1/add/?parent_id=190272&text=qwe&user_id=826
+
+Edit Comment Examples
+---------------------
+* /api/comment/v1/add/?type_id=1&object_id=123&text=qwe&&user_id=123
+* /api/comment/v1/add/?parent_id=190272&text=qwe&user_id=826
 
 
  Table Screenshot

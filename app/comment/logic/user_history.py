@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 def user_history(user_history_schema_in):
     """
         :type user_history_schema_in: UserHistorySchemaIn
-        :rtype: tuple(UserHistorySchemaOut, list(Comment))
+        :rtype: tuple(UserHistorySchemaOut, list(dict))
     """
     query = Comment.objects.filter(
         user_id=user_history_schema_in.user_id
@@ -27,5 +27,5 @@ def user_history(user_history_schema_in):
             created_at__lte=user_history_schema_in.created_at_to
         )
     query = query.order_by('created_at')
-    history = list(query)
+    history = [comment.to_dict() for comment in query]
     return UserHistorySchemaOut({'status': UserHistorySchemaOut.STATUS_OK}), history
