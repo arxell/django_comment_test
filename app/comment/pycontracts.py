@@ -102,3 +102,15 @@ def ExportHistorySchemaOut(x):
     from .defs import ExportHistorySchemaOut
     return isinstance(x, ExportHistorySchemaOut)
 
+
+@new_contract
+def EditHistorySchemIn(x):
+    from .defs import EditHistorySchemIn
+    return isinstance(x, EditHistorySchemIn)
+
+
+@new_contract
+def EditHistorySchemOut(x):
+    from .defs import EditHistorySchemOut
+    return isinstance(x, EditHistorySchemOut)
+

@@ -35,7 +35,7 @@ class Comment(MPTTModel):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class MPTTMeta:
-        order_insertion_by = ['text']
+        order_insertion_by = []
 
     @contracts.contract
     def to_dict(comment):

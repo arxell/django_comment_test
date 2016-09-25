@@ -22,6 +22,10 @@ Edit Comment Examples
 ---------------------
 * /api/comment/v1/edit/?comment_id=1&text=123qweasd&user_id=9272
 
+Edit History Examples
+---------------------
+*  /api/comment/v1/edit/history?comment_id=238925
+
 Delete Comment Examples
 ---------------------
 * /api/comment/v1/delete/?comment_id=8262&user_id=282

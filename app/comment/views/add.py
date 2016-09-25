@@ -34,9 +34,11 @@ def view(request):
         })
         return JsonResponse(add_schema_out.to_native(), status=400)
 
-    add_schema_out = add_comment(add_schema_in)
+    add_schema_out, comment = add_comment(add_schema_in)
 
     if add_schema_out.is_status_ok:
-        return JsonResponse(add_schema_out.to_native())
+        result = add_schema_out.to_native()
+        result['comment_id'] = comment.id
+        return JsonResponse(result)
     else:
         return JsonResponse(add_schema_out.to_native(), status=409)

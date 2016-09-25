@@ -65,9 +65,6 @@ class AddSchemIn(BaseModelIn):
 class AddSchemOut(BaseModelOut):
     ERROR_PARENT_NOT_FOUND = 'parent_not_found'
 
-    # additional data
-    comment_id = t.IntType(required=False, min_value=1)
-
 
 ### edit ###
 class EditSchemIn(BaseModelIn):
@@ -79,8 +76,14 @@ class EditSchemIn(BaseModelIn):
 class EditSchemOut(BaseModelOut):
     ERROR_COMMENT_NOT_FOUND = 'comment_not_found'
 
-    # additional data
-    comment_id = t.IntType(required=False, min_value=1)
+
+### edit history ###
+class EditHistorySchemIn(BaseModelIn):
+    comment_id = t.IntType(required=True, min_value=1)
+
+
+class EditHistorySchemOut(BaseModelOut):
+    ERROR_COMMENT_NOT_FOUND = 'comment_not_found'
 
 
 ### delete ###

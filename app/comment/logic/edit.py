@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 def edit_comment(edit_schema_in):
     """
         :type edit_schema_in: EditSchemIn
-        :rtype: EditSchemOut
+        :rtype: tuple(EditSchemOut, Comment|None)
     """
     comment = Comment.objects.filter(
         id=edit_schema_in.comment_id,
@@ -25,12 +25,12 @@ def edit_comment(edit_schema_in):
         return EditSchemOut({
             'status': EditSchemOut.STATUS_ERROR,
             'error': EditSchemOut.ERROR_COMMENT_NOT_FOUND,
-        })
+        }), None
 
     with transaction.atomic(), reversion.create_revision():
         comment.text = edit_schema_in.text
-        comment.save(update_fields=['text'])
+        comment.save()
 
         reversion.set_comment('Comment was edited by user')
 
-    return EditSchemOut({'status': EditSchemOut.STATUS_OK})
+    return EditSchemOut({'status': EditSchemOut.STATUS_OK}), comment
