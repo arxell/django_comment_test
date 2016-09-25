@@ -36,6 +36,8 @@ Tree Examples
 * /api/comment/v1/tree/?user_id=1
 * /api/comment/v1/tree/?type_id=1&object_id=123
 
+http://pastebin.com/xLx1NLQD
+
 User History
 ---------------------
 * /api/comment/v1/user/history/?user_id=1&created_at_from=2016-09-23T06:25:04.189753
