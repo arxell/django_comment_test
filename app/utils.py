@@ -18,3 +18,16 @@ def timeit(method):
         return result
 
     return timed
+
+
+def query_get_one(query):
+    """
+    x100 faster than
+
+    <model>.objects.filter(...).first()
+
+    return object instance or None
+    """
+    objects = query.all()[:1]
+    if objects:
+        return objects[0]

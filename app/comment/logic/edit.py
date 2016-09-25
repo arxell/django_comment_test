@@ -6,6 +6,7 @@ import contracts
 
 from app.comment.models import Comment
 from app.comment.defs import EditSchemOut
+from app.utils import query_get_one
 
 
 log = logging.getLogger(__name__)
@@ -17,10 +18,10 @@ def edit_comment(edit_schema_in):
         :type edit_schema_in: EditSchemIn
         :rtype: tuple(EditSchemOut, Comment|None)
     """
-    comment = Comment.objects.filter(
+    comment = query_get_one(Comment.objects.filter(
         id=edit_schema_in.comment_id,
         user_id=edit_schema_in.user_id,
-    ).first()
+    ))
     if not comment:
         return EditSchemOut({
             'status': EditSchemOut.STATUS_ERROR,

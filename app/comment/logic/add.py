@@ -1,12 +1,12 @@
 import logging
 
-from django.conf import settings
-from django.contrib.auth.models import User
+from django.db import transaction
+from reversion import revisions as reversion
 import contracts
 
-from app.comment.models import Comment
 from app.comment.defs import AddSchemOut
-
+from app.comment.models import Comment
+from app.utils import query_get_one
 
 log = logging.getLogger(__name__)
 
@@ -19,9 +19,9 @@ def add_comment(add_schema_in):
     """
     # check parent
     if add_schema_in.parent_id:
-        parent_comment = Comment.objects.filter(
+        parent_comment = query_get_one(Comment.objects.filter(
             id=add_schema_in.parent_id
-        ).first()
+        ))
         if not parent_comment:
             return AddSchemOut({
                 'status': AddSchemOut.STATUS_ERROR,
@@ -32,13 +32,15 @@ def add_comment(add_schema_in):
             add_schema_in.object_id = None
             add_schema_in.type_id = None
 
-    comment = Comment.objects.create(
-        object_id=add_schema_in.object_id,
-        parent_id=add_schema_in.parent_id,
-        text=add_schema_in.text,
-        type_id=add_schema_in.type_id,
-        user_id=add_schema_in.user_id,
-    )
+    with transaction.atomic(), reversion.create_revision():
+        comment = Comment.objects.create(
+            object_id=add_schema_in.object_id,
+            parent_id=add_schema_in.parent_id,
+            text=add_schema_in.text,
+            type_id=add_schema_in.type_id,
+            user_id=add_schema_in.user_id,
+        )
+        reversion.set_comment('Comment was created by user')
 
     return AddSchemOut({
         'status': AddSchemOut.STATUS_OK,

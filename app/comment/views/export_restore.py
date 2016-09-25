@@ -5,7 +5,7 @@ from schematics.exceptions import ModelConversionError, ValidationError
 
 from app.comment.defs import ExportRestoreSchemaIn, ExportRestoreSchemaOut
 from app.comment.models import Export
-from app.utils import timeit
+from app.utils import timeit, query_get_one
 
 
 log = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ def view(request):
         })
         return JsonResponse(export_history_out.to_native(), status=400)
 
-    export = Export.objects.filter(id=restore_in.export_id).first()
+    export = query_get_one(Export.objects.filter(id=restore_in.export_id))
     if not export:
         export_history_out = ExportRestoreSchemaOut({
             'status': ExportRestoreSchemaOut.STATUS_ERROR,

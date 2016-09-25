@@ -6,7 +6,7 @@ from schematics.exceptions import ModelConversionError, ValidationError
 
 from app.comment.defs import EditHistorySchemIn, EditHistorySchemOut
 from app.comment.models import Comment
-from app.utils import timeit
+from app.utils import timeit, query_get_one
 
 log = logging.getLogger(__name__)
 
@@ -34,9 +34,9 @@ def view(request):
         })
         return JsonResponse(edit_history_schema_out.to_native(), status=400)
 
-    comment = Comment.objects.filter(
+    comment = query_get_one(Comment.objects.filter(
         id=edit_history_schema_in.comment_id
-    ).first()
+    ))
     if not comment:
         edit_history_schema_out = EditHistorySchemOut({
             'status': EditHistorySchemOut.STATUS_ERROR,
